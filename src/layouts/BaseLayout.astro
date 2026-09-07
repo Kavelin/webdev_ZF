@@ -3,7 +3,7 @@ interface Props {
   title?: string;
 }
 
-const { title = "ZEALED FUJOSHI :: Cyber-Shrine Archive" } = Astro.props;
+const { title = "ZEALED FUJOSHI" } = Astro.props;
 
 import SiteHeader from "../components/SiteHeader.astro";
 import Navigation from "../components/Navigation.astro";
@@ -19,12 +19,18 @@ import SidebarAds from "../components/SidebarAds.astro";
     <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+      integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <style is:global>
       :root {
         --bg-color: white;
@@ -511,16 +517,33 @@ import SidebarAds from "../components/SidebarAds.astro";
     </style>
   </head>
   <body>
+    <div
+      style=" width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; overflow: clip; z-index:-1; "
+    >
+      <div
+        id="Slogan"
+        style="z-index: -1; user-select: none; position: fixed; font-size: 20pt; font-weight: 600;transform: rotateZ(-45deg) scale(1.5); color: #000; text-align: justify; margin-left: 6px; margin-right: 6px;"
+      >
+      </div>
+    </div><script>
+      var text = "";
+
+      for (var i = 0; i < 200; i++) {
+        text += "ZEALED FUJOSHI ";
+      }
+
+      document.querySelector("#Slogan").innerHTML = text;
+    </script>
     <div class="marquee-container">
       <marquee scrollamount="4"
-        >&#9733; WELCOME TO ZEALED FUJOSHI &#9733; WELCOME TO ZEALED FUJOSHI
+        >&#9733; WELCOME TO ZEALED FUJOSHI &#9733; A show heavily focused on the
+        hottest and latest boys love / yaoi anime, manga, manwha and webtoon.
         &#9733; WELCOME TO ZEALED FUJOSHI &#9733;
       </marquee>
     </div>
 
     <SiteHeader />
     <div class="desktop-wrapper">
-
       <div class="layout-grid">
         <aside class="left-col">
           <Navigation />
@@ -539,139 +562,140 @@ import SidebarAds from "../components/SidebarAds.astro";
 
     <script type="text/javascript">
       // <![CDATA[
-      var colours = new Array("#a6f", "#60f", "#60f", "#a6f", "#ccc"); // colours for top, right, bottom and left borders and background of bubbles
-      var bubbles = 66; // maximum number of bubbles on screen
-      var over_or_under = "over"; // set to "over" for bubbles to always be on top, or "under" to allow them to float behind other objects
+      var colours = new Array(
+        "#ff0000cc",
+        "#ff0066cc",
+        "#ff00ffcc",
+        "#ff66ffcc",
+        "#ff3399cc",
+        "#ff99cccc",
+      ); // colours of the hearts
+      var minisize = 6; // smallest size of hearts in pixels
+      var maxisize = 10; // biggest size of hearts in pixels
+      var hearts = 66; // maximum number of hearts on screen
+      var over_or_under = "over"; // set to "over" for hearts to always be on top, or "under" to allow them to float behind other objects
 
-      /****************************
-       * JavaScript Bubble Cursor  *
-       *(c)2010-13 mf2fm web-design*
-       *  http://www.mf2fm.com/rv  *
-       * DON'T EDIT BELOW THIS BOX *
-       ****************************/
+      /*****************************
+       *JavaScript Love Heart Cursor*
+       *  (c)2013+ mf2fm web-design *
+       *   http://www.mf2fm.com/rv  *
+       *  DON'T EDIT BELOW THIS BOX *
+       *****************************/
       var x = (ox = 400);
       var y = (oy = 300);
       var swide = 800;
       var shigh = 600;
       var sleft = (sdown = 0);
-      var bubb = new Array();
-      var bubbx = new Array();
-      var bubby = new Array();
-      var bubbs = new Array();
-      var sploosh = false;
+      var herz = new Array();
+      var herzx = new Array();
+      var herzy = new Array();
+      var herzs = new Array();
+      var kiss = false;
 
-      function addLoadEvent(funky) {
-        var oldonload = window.onload;
-        if (typeof oldonload != "function") window.onload = funky;
-        else
-          window.onload = function () {
-            if (oldonload) oldonload();
-            funky();
-          };
-      }
+      if (typeof "addRVLoadEvent" != "function")
+        function addRVLoadEvent(funky) {
+          var oldonload = window.onload;
+          if (typeof oldonload != "function") window.onload = funky;
+          else
+            window.onload = function () {
+              if (oldonload) oldonload();
+              funky();
+            };
+        }
 
-      addLoadEvent(buble);
+      addRVLoadEvent(mwah);
 
-      function buble() {
+      function mwah() {
         if (document.getElementById) {
-          var i, rats, div;
-          for (i = 0; i < bubbles; i++) {
-            rats = createDiv("3px", "3px");
-            rats.style.visibility = "hidden";
-            rats.style.zIndex = over_or_under == "over" ? "1001" : "0";
-
-            div = createDiv("auto", "auto");
-            rats.appendChild(div);
-            div = div.style;
-            div.top = "1px";
-            div.left = "0px";
-            div.bottom = "1px";
-            div.right = "0px";
-            div.borderLeft = "1px solid " + colours[3];
-            div.borderRight = "1px solid " + colours[1];
-
-            div = createDiv("auto", "auto");
-            rats.appendChild(div);
-            div = div.style;
-            div.top = "0px";
-            div.left = "1px";
-            div.right = "1px";
-            div.bottom = "0px";
-            div.borderTop = "1px solid " + colours[0];
-            div.borderBottom = "1px solid " + colours[2];
-
-            div = createDiv("auto", "auto");
-            rats.appendChild(div);
-            div = div.style;
-            div.left = "1px";
-            div.right = "1px";
-            div.bottom = "1px";
-            div.top = "1px";
-            div.backgroundColor = colours[4];
+          var i, heart;
+          for (i = 0; i < hearts; i++) {
+            heart = createDiv("auto", "auto");
+            heart.style.visibility = "hidden";
+            heart.style.zIndex = over_or_under == "over" ? "1001" : "0";
+            heart.style.color = colours[i % colours.length];
+            heart.style.pointerEvents = "none";
             if (navigator.appName == "Microsoft Internet Explorer")
-              div.filter = "alpha(opacity=50)";
-            else div.opacity = 0.5;
-            document.body.appendChild(rats);
-            bubb[i] = rats.style;
+              heart.style.filter = "alpha(opacity=75)";
+            else heart.style.opacity = 0.75;
+            heart.appendChild(
+              document.createTextNode(String.fromCharCode(9829)),
+            );
+            document.body.appendChild(heart);
+            herz[i] = heart;
+            herzy[i] = false;
           }
           set_scroll();
           set_width();
-          bubble();
+          herzle();
         }
       }
 
-      function bubble() {
+      function herzle() {
         var c;
         if (Math.abs(x - ox) > 1 || Math.abs(y - oy) > 1) {
           ox = x;
           oy = y;
-          for (c = 0; c < bubbles; c++)
-            if (!bubby[c]) {
-              bubb[c].left = (bubbx[c] = x) + "px";
-              bubb[c].top = (bubby[c] = y - 3) + "px";
-              bubb[c].width = "3px";
-              bubb[c].height = "3px";
-              bubb[c].visibility = "visible";
-              bubbs[c] = 3;
+          for (c = 0; c < hearts; c++)
+            if (herzy[c] === false) {
+              herz[c].firstChild.nodeValue = String.fromCharCode(9829);
+              herz[c].style.left = (herzx[c] = x - minisize / 2) + "px";
+              herz[c].style.top = (herzy[c] = y - minisize) + "px";
+              herz[c].style.fontSize = minisize + "px";
+              herz[c].style.fontWeight = "normal";
+              herz[c].style.visibility = "visible";
+              herzs[c] = minisize;
               break;
             }
         }
-        for (c = 0; c < bubbles; c++) if (bubby[c]) update_bubb(c);
-        setTimeout("bubble()", 40);
+        for (c = 0; c < hearts; c++) if (herzy[c] !== false) blow_me_a_kiss(c);
+        setTimeout("herzle()", 40);
       }
 
-      document.onmousedown = splash;
+      document.onmousedown = pucker;
       document.onmouseup = function () {
-        clearTimeout(sploosh);
+        clearTimeout(kiss);
       };
 
-      function splash() {
+      function pucker() {
         ox = -1;
         oy = -1;
-        sploosh = setTimeout("splash()", 100);
+        kiss = setTimeout("pucker()", 100);
       }
 
-      function update_bubb(i) {
-        if (bubby[i]) {
-          bubby[i] -= bubbs[i] / 2 + (i % 2);
-          bubbx[i] += ((i % 5) - 2) / 5;
-          if (
-            bubby[i] > sdown &&
-            bubbx[i] > sleft &&
-            bubbx[i] < sleft + swide + bubbs[i]
-          ) {
-            if (Math.random() < (bubbs[i] / shigh) * 2 && bubbs[i]++ < 8) {
-              bubb[i].width = bubbs[i] + "px";
-              bubb[i].height = bubbs[i] + "px";
-            }
-            bubb[i].top = bubby[i] + "px";
-            bubb[i].left = bubbx[i] + "px";
-          } else {
-            bubb[i].visibility = "hidden";
-            bubby[i] = 0;
-            return;
-          }
+      function blow_me_a_kiss(i) {
+        herzy[i] -= herzs[i] / minisize + (i % 2);
+        herzx[i] += ((i % 5) - 2) / 5;
+        if (
+          herzy[i] < sdown - herzs[i] ||
+          herzx[i] < sleft - herzs[i] ||
+          herzx[i] > sleft + swide - herzs[i]
+        ) {
+          herz[i].style.visibility = "hidden";
+          herzy[i] = false;
+        } else if (herzs[i] > minisize + 2 && Math.random() < 0.5 / hearts)
+          break_my_heart(i);
+        else {
+          if (Math.random() < maxisize / herzy[i] && herzs[i] < maxisize)
+            herz[i].style.fontSize = ++herzs[i] + "px";
+          herz[i].style.top = herzy[i] + "px";
+          herz[i].style.left = herzx[i] + "px";
         }
+      }
+
+      function break_my_heart(i) {
+        var t;
+        herz[i].firstChild.nodeValue = String.fromCharCode(9676);
+        herz[i].style.fontWeight = "bold";
+        herzy[i] = false;
+        for (t = herzs[i]; t <= maxisize; t++)
+          setTimeout(
+            "herz[" + i + '].style.fontSize="' + t + 'px"',
+            60 * (t - herzs[i]),
+          );
+        setTimeout(
+          "herz[" + i + '].style.visibility="hidden";',
+          60 * (t - herzs[i]),
+        );
       }
 
       document.onmousemove = mouse;
