@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const applePodcastUrl = 'https://podcasts.apple.com/us/podcast/zealed-fujoshi-a-yaoi-boys-love-bl-podcast/id1530688864';
+const spotifyEmbedUrl = 'https://open.spotify.com/embed/show/61re9eciOLavgZ9wPkBLOr?utm_source=generator&si=109dc048c0b948c8';
+---
+
+<BaseLayout title="Podcast Episodes — ZEALED FUJOSHI">
+  <div class="min-h-screen bg-surface text-porcelain pt-28 pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header Section -->
+      <div class="mb-16 space-y-4 text-center">
+        <h1 class="text-5xl md:text-6xl font-black uppercase tracking-tight text-porcelain">
+          ZEALED <span class="text-razzmatazz">PODCASTS</span>
+        </h1>
+        <p class="text-lg text-porcelain/75 max-w-2xl mx-auto">
+          In-depth conversations with voice actors, creators, and leaders shaping anime and Japanese pop culture.
+        </p>
+      </div>
+
+      <!-- Podcast Embeds Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <!-- Spotify Embed -->
+        <div class="space-y-4 reveal-up">
+          <h3 class="text-xs font-mono uppercase tracking-widest text-razzmatazz">[ STREAM ON SPOTIFY ]</h3>
+          <div class="rounded-2xl overflow-hidden border border-white/10 bg-black/20">
+            <iframe 
+              data-testid="embed-iframe" 
+              style="border-radius:12px" 
+              src={spotifyEmbedUrl} 
+              width="100%" 
+              height="352" 
+              frameBorder="0" 
+              allowfullscreen="" 
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+
+        <!-- Apple Podcast Embed -->
+        <div class="space-y-4 reveal-up">
+          <h3 class="text-xs font-mono uppercase tracking-widest text-razzmatazz">[ STREAM ON APPLE PODCASTS ]</h3>
+          <div class="rounded-2xl overflow-hidden border border-white/10 bg-black/20">
+            <iframe 
+              allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" 
+              frameborder="0" 
+              height="450" 
+              style="width:100%; max-width:660px; overflow:hidden; border-radius:10px;" 
+              sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" 
+              src={`https://embed.podcasts.apple.com/us/podcast/zealed-fujoshi-a-yaoi-boys-love-bl-podcast/id1530688864`}>
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Direct Link -->
+      <div class="mt-12 text-center reveal-up">
+        <a 
+          href={applePodcastUrl} 
+          target="_blank" 
+          class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-velvet-orchid hover:bg-velvet-orchid/80 text-porcelain transition-all font-bold uppercase tracking-wider text-sm"
+        >
+          OPEN IN APPLE PODCASTS
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>

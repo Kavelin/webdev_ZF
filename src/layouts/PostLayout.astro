@@ -1,0 +1,146 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  summary: string;
+  pubDate: Date;
+  author: string;
+  category: string;
+  coverImage?: string;
+  readingTime: number;
+  tags?: string[];
+}
+
+const { 
+  title, 
+  summary, 
+  pubDate, 
+  author, 
+  category, 
+  coverImage, 
+  readingTime, 
+  tags 
+} = Astro.props;
+---
+
+<BaseLayout title={`${title} - ZEALED FUJOSHI Posts`}>
+  <div class="min-h-screen bg-gradient-to-b from-black/40 to-black pt-24 pb-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Back Button -->
+      <a href="/posts" class="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white mb-8 transition-colors">
+        <span>←</span> Back to Posts
+      </a>
+
+      <!-- Header -->
+      <div class="mb-8">
+        <div class="flex gap-3 mb-4 flex-wrap">
+          <span class="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
+            {category.replace(/_/g, ' ')}
+          </span>
+          {/* Note: featured is handled in PostLayout but not explicitly in Props interface above for brevity, 
+              however it's often passed. Adding it to interface now. */}
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">{title}</h1>
+        <p class="text-lg text-white/60 mb-4">{summary}</p>
+        <div class="flex flex-wrap gap-4 text-sm text-white/50 border-t border-white/10 pt-4">
+          <span>By <span class="text-white font-medium">{author}</span></span>
+          <span>•</span>
+          <span>{readingTime} min read</span>
+          <span>•</span>
+          <span>{new Date(pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+        </div>
+      </div>
+
+      <!-- Cover Image -->
+      {coverImage && (
+        <div class="mb-12 rounded-xl overflow-hidden">
+          <img
+            src={coverImage}
+            alt={title}
+            class="w-full h-96 object-cover rounded-xl"
+          />
+        </div>
+      )}
+
+      <slot />
+
+      <!-- Tags -->
+      {tags && tags.length > 0 && (
+        <div class="py-8 border-t border-white/10">
+          <p class="text-sm text-white/50 mb-3 uppercase tracking-wider">Tags</p>
+          <div class="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <a href={`/posts/tags/${tag.toLowerCase()}`} class="px-3 py-1.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-sm hover:bg-cyan-500/20 transition-colors">
+                {tag}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- Navigation -->
+      <div class="mt-16 pt-8 border-t border-white/10">
+        <a href="/posts" class="inline-block px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-sm font-medium">
+          ← All Articles
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .prose {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .prose h2, .prose h3 {
+    color: white;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose h1 {
+    display: none;
+  }
+
+  .prose a {
+    color: #ff2e63;
+    text-decoration: underline;
+  }
+
+  .prose a:hover {
+    color: #ff1f4f;
+  }
+
+  .prose pre {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+  }
+
+  .prose code {
+    color: #fbbf24;
+  }
+
+  .prose blockquote {
+    border-left-color: #ff2e63;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+  }
+
+  .prose ul, .prose ol {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+
+  .prose img {
+    border-radius: 0.75rem;
+    max-width: 100%;
+  }
+</style>

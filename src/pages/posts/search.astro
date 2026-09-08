@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = await getCollection('posts');
+const postData = posts.map(post => ({
+  title: post.data.title,
+  summary: post.data.summary,
+  category: post.data.category,
+  tags: post.data.tags || [],
+  slug: post.slug,
+  author: post.data.author,
+  readingTime: post.data.readingTime,
+  coverImage: post.data.coverImage,
+}));
+---
+
+<BaseLayout title="Search Posts - ZEALED FUJOSHI">
+  <div class="min-h-screen bg-gradient-to-b from-black/40 to-black pt-24 pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-16 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-4">Search Posts</h1>
+        <p class="text-lg text-white/60">Find articles, interviews, and coverage</p>
+      </div>
+
+      <div id="search-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Results injected by JS -->
+      </div>
+
+      <div id="no-results" class="hidden text-center py-16">
+        <p class="text-white/60 text-xl">No posts found matching your query.</p>
+        <a href="/posts" class="mt-4 inline-block text-red-400 hover:text-red-300 underline">View all posts</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script define:vars={{ postData }}>
+  function renderResults(results) {
+    const container = document.getElementById('search-results');
+    const noResults = document.getElementById('no-results');
+    
+    container.innerHTML = '';
+    
+    if (results.length === 0) {
+      noResults.classList.remove('hidden');
+      return;
+    }
+    
+    noResults.classList.add('hidden');
+    
+    results.forEach(post => {
+      const card = document.createElement('a');
+      card.href = `/posts/${post.slug}`;
+      card.className = 'group block rounded-xl overflow-hidden card-glass hover:border-red-500/30 transition-all';
+      
+      card.innerHTML = `
+        <div class="relative h-48 overflow-hidden">
+          ${post.coverImage ? 
+            `<img src="${post.coverImage}" alt="${post.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />` : 
+            `<div class="w-full h-full bg-white/5 flex items-center justify-center text-white/20">No Image</div>`
+          }
+        </div>
+        <div class="p-6">
+          <span class="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
+            ${post.category.replace(/_/g, ' ')}
+          </span>
+          <h2 class="text-xl font-bold mt-3 mb-2 group-hover:text-red-400 transition-colors line-clamp-2">
+            ${post.title}
+          </h2>
+          <p class="text-sm text-white/60 line-clamp-2">${post.summary}</p>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function performSearch() {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('q')?.toLowerCase() || '';
+    const maxResults = parseInt(params.get('max-results') || '0');
+
+    if (!query) {
+      renderResults([]);
+      document.getElementById('no-results').classList.remove('hidden');
+      return;
+    }
+
+    const filtered = postData.filter(post => 
+      post.title.toLowerCase().includes(query) || 
+      post.summary.toLowerCase().includes(query) || 
+      post.category.toLowerCase().includes(query) || 
+      post.tags.some(tag => tag.toLowerCase().includes(query))
+    );
+
+    const sliced = maxResults > 0 ? filtered.slice(0, maxResults) : filtered;
+    renderResults(sliced);
+  }
+
+  performSearch();
+</script>

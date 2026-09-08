@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const tags = new Set<string>();
+  
+  posts.forEach(post => {
+    if (post.data.tags) {
+      post.data.tags.forEach(tag => tags.add(tag.toLowerCase()));
+    }
+  });
+
+  return Array.from(tags).map(tag => {
+    const filteredPosts = posts.filter(post => 
+      post.data.tags?.some(t => t.toLowerCase() === tag)
+    );
+    return {
+      params: { tag },
+      props: { 
+        tag, 
+        posts: filteredPosts 
+      },
+    };
+  });
+}
+
+interface Props {
+  tag: string;
+  posts: any[];
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout title={`Posts tagged with ${tag} - ZEALED FUJOSHI`}>
+  <div class="min-h-screen bg-gradient-to-b from-black/40 to-black pt-24 pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-16">
+        <div class="flex items-center gap-4 mb-4">
+          <h1 class="text-5xl md:text-6xl font-bold">#{tag}</h1>
+        </div>
+        <a href="/posts" class="text-red-400 hover:text-red-300 transition-colors flex items-center gap-2">
+          <span>←</span> Back to all posts
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.map((post) => (
+          <a href={`/posts/${post.slug}`} class="group block rounded-xl overflow-hidden card-glass hover:border-red-500/30 transition-all">
+            <div class="relative h-48 overflow-hidden">
+              {post.data.coverImage ? (
+                <img 
+                  src={post.data.coverImage} 
+                  alt={post.data.title} 
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
+                />
+              ) : (
+                <div class="w-full h-full bg-white/5 flex items-center justify-center text-white/20">
+                  No Image
+                </div>
+              )}
+            </div>
+            <div class="p-6">
+              <span class="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
+                {post.data.category.replace(/_/g, ' ')}
+              </span>
+              <h2 class="text-xl font-bold mt-3 mb-2 group-hover:text-red-400 transition-colors line-clamp-2">
+                {post.data.title}
+              </h2>
+              <p class="text-sm text-white/60 line-clamp-2">{post.data.summary}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

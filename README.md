@@ -1,7 +1,5 @@
 # Zealed Fujoshi 
 
-Built with Astro!
-
 ---
 
 ## Build and develop
@@ -21,23 +19,27 @@ npm run preview  # serves the built site locally
 .
 ├── astro.config.mjs
 ├── package.json
+├── tailwind.config.mjs
 ├── tsconfig.json
+├── public/               # Static assets (ads, carousel, partners)\
 └── src/
-    ├── components/
-    │   ├── Navigation.astro
-    │   ├── PopularPosts.astro
-    │   ├── SidebarAds.astro
-    │   ├── SiteHeader.astro
-    ├── content/
-    │   ├── config.ts          # schema for posts
-    │   └── posts/             # drop .md files here
-    │       ├── example.md     # an example markdown file
-    ├── layouts/
-    │   └── BaseLayout.astro   # shell
-    └── pages/
-        ├── index.astro        # homepage feed
-        └── posts/
-            └── [...slug].astro # dynamic post pages
+    ├── components/       # UI Components (Glassmorphic design system)\
+    ├── content/          # Content Collections\
+    │   ├── config.ts    # Schema for press/posts\
+    │   └── press/        # Markdown files for blog posts\
+    ├── layouts/          # Page wrappers (BaseLayout)\
+    ├── pages/            # File-based routing\
+    │   ├── index.astro    # Homepage (Featured posts & Events)\
+    │   ├── contact.astro # Contact page\
+    │   ├── podcasts/      # Podcast index and dynamic pages\
+    │   └── posts/        # Paginated blog index and dynamic pages\
+    └── styles/           # Global CSS & Themes\
 ```
 
+---
+
+## Deployment & CMS
+
+- **Potential CMS Options**: TinaCMS or DecapCMS.
+- **Strategy**: Leveraging Astro Content Collections to allow the CMS to edit Markdown files directly in the repository!
 ---

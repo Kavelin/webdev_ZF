@@ -1,47 +1,53 @@
 ---
-// Top header bar with the site logo on the left and social icons on the right.
-// Lives at the very top of every page, above the marquee.
+// Modern header with branding and social links
+// Lives above the navigation bar
 
 interface SocialLink {
   name: string;
   href: string;
   title: string;
+  icon: string;
 }
 
 const socials: SocialLink[] = [
-  { name: "facebook",  href: "https://www.facebook.com/zealedfujoshi", title: "facebook" },
-  { name: "twitter",   href: "https://twitter.com/zealedfujoshi",      title: "twitter" },
-  { name: "instagram", href: "https://www.instagram.com/zealedfujoshi", title: "instagram" },
-  { name: "youtube",   href: "https://www.youtube.com/c/ZealedFujoshi", title: "youtube" },
-  { name: "tumblr",    href: "https://zealedfujoshi.tumblr.com/",       title: "tumblr" },
-  { name: "twitch",    href: "https://twitch.tv/zealedfujoshi",        title: "twitch" },
-  { name: "email",     href: "mailto:zealedfujoshi@gmail.com",         title: "email" },
+  { name: "twitter",   href: "https://twitter.com/zealedfujoshi",      title: "Twitter/X", icon: "𝕏" },
+  { name: "instagram", href: "https://www.instagram.com/zealedfujoshi", title: "Instagram", icon: "📷" },
+  { name: "youtube",   href: "https://www.youtube.com/c/ZealedFujoshi", title: "YouTube", icon: "▶" },
+  { name: "discord",   href: "https://discord.com/invite/UngnnVQrXH",   title: "Discord", icon: "💬" },
+  { name: "email",     href: "mailto:zealedfujoshi@gmail.com",         title: "Email", icon: "✉" },
 ];
-
-// Map network names to their Font Awesome v6 class names
-const iconMap: Record<string, string> = {
-  facebook: "fa-brands fa-facebook",
-  twitter: "fa-brands fa-x-twitter", // Updated to Font Awesome v6 standard for Twitter/X
-  instagram: "fa-brands fa-instagram",
-  youtube: "fa-brands fa-youtube",
-  tumblr: "fa-brands fa-tumblr",
-  twitch: "fa-brands fa-twitch",
-  email: "fa-solid fa-envelope", // Email uses standard solid envelope icon
-};
 ---
 
-<header class="site-header">
-  <div class="site-header-inner">
-    <h1 class="site-logo">Zealed Fujoshi</h1>
+<div class="bg-zf-charcoal border-b border-zf-gray">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between py-4">
+      {/* Left: Branding & Tagline */}
+      <div class="flex-1">
+        <p class="text-xs font-inter text-zf-light-gray tracking-widest uppercase">
+          Official Anime & BL Press Outlet
+        </p>
+      </div>
 
-    <ul class="site-social" aria-label="Social links">
-      {socials.map((s) => (
-        <li class={`social-${s.name}`}>
-          <a href={s.href} target="_blank" rel="noopener" title={s.title} aria-label={s.title}>
-            <i class={iconMap[s.name] || "fa-solid fa-link"} aria-hidden="true"></i>
+      {/* Center: Call-to-action */}
+      <div class="hidden md:flex items-center gap-2 flex-1 justify-center">
+        <span class="text-xs font-inter text-zf-cyan">🎙 LISTEN LIVE NOW</span>
+      </div>
+
+      {/* Right: Social Links */}
+      <div class="flex items-center gap-4 flex-1 justify-end">
+        {socials.map((social) => (
+          <a
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={social.title}
+            class="text-zf-light-gray hover:text-zf-cyan transition-colors text-sm font-inter"
+            aria-label={social.title}
+          >
+            {social.icon}
           </a>
-        </li>
-      ))}
-    </ul>
+        ))}
+      </div>
+    </div>
   </div>
-</header>
+</div>

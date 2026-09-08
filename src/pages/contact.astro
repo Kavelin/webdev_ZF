@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Copy, Mail, Send } from "lucide-react";
+---
+
+<BaseLayout title="Contact - ZEALED FUJOSHI Press">
+  <div class="min-h-screen bg-surface pt-24 pb-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
+      <div class="mb-16 text-center">
+        <h1
+          class="text-5xl md:text-6xl font-bold text-porcelain mb-4 uppercase tracking-tight"
+        >
+          Get In Touch
+        </h1>
+      </div>
+
+      <div
+        class="p-8 rounded-3xl card-glass"
+      >
+        <form class="space-y-5" onsubmit="event.preventDefault()">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div class="space-y-2">
+              <label
+                class="text-xs font-mono text-porcelain/50 uppercase tracking-wider"
+                >Name</label
+              >
+              <input
+                type="text"
+                placeholder="Your Name"
+                class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-porcelain focus:outline-none focus:border-razzmatazz transition-colors"
+              />
+            </div>
+            <div class="space-y-2">
+              <label
+                class="text-xs font-mono text-porcelain/50 uppercase tracking-wider"
+                >Email</label
+              >
+              <input
+                type="email"
+                placeholder="email@example.com"
+                class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-porcelain focus:outline-none focus:border-razzmatazz transition-colors"
+              />
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label
+              class="text-xs font-mono text-porcelain/50 uppercase tracking-wider"
+              >Inquiry Type</label
+            >
+            <select
+              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-porcelain focus:outline-none focus:border-razzmatazz transition-colors appearance-none"
+            >
+              <option>General Inquiry</option>
+              <option>Press Release</option>
+              <option>Event Invitation</option>
+              <option>Interview Request</option>
+              <option>Partnership</option>
+            </select>
+          </div>
+
+          <div class="space-y-2">
+            <label
+              class="text-xs font-mono text-porcelain/50 uppercase tracking-wider"
+              >Message</label
+            >
+            <textarea
+              rows="4"
+              placeholder="How can we help you?"
+              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-porcelain focus:outline-none focus:border-razzmatazz transition-colors"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-4 rounded-xl bg-razzmatazz text-porcelain font-bold hover:bg-razzmatazz/90 transition-all flex items-center justify-center gap-2 group"
+          >
+            <span>SEND INQUIRY</span>
+            <Send
+              size={18}
+              class="group-hover:translate-x-1 transition-transform"
+            />
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

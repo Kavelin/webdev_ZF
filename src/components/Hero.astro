@@ -1,0 +1,339 @@
+---
+/**
+ * Hero.astro
+ * High-impact, editorial-style hero element for Zealed Fujoshi Press.
+ * Features GSAP animations and brand-aligned colors.
+ */
+---
+
+<section
+  class="relative min-h-[92vh] flex items-center justify-center pt-28 pb-16 overflow-hidden bg-surface"
+>
+  <!-- Background Image -->
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <img
+      id="hero-bg"
+      src="/background.png"
+      alt=""
+      class="w-full h-full object-cover opacity-40 scale-125 origin-center"
+    />
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <!-- Left: Hero Headline & CTAs -->
+      <div class="lg:col-span-7 space-y-6 text-left">
+        <!-- Main Typography -->
+        <h1
+          class="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight leading-none uppercase hero-title"
+        >
+          <span class="text-porcelain block">ZEALED</span>
+          <span class="text-razzmatazz block">FUJOSHI</span>
+        </h1>
+
+        <p
+          class="text-xl sm:text-2xl text-porcelain/85 font-light leading-relaxed max-w-xl hero-element"
+        >
+          A show heavily focused on the hottest and latest boys love / yaoi
+          anime, manga, manwha and webtoon.
+        </p>
+
+        <!-- Buttons -->
+        <div class="flex flex-wrap gap-4 pt-4 hero-element">
+          <a
+            href="/posts"
+            class="px-8 py-3.5 rounded-xl bg-razzmatazz text-porcelain font-semibold hover:shadow-lg hover:shadow-razzmatazz/30 hover:bg-razzmatazz/90 transition-all duration-300 flex items-center gap-2 group"
+          >
+            <span>EXPLORE POSTS</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="group-hover:translate-x-1 transition-transform"
+              ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
+            >
+          </a>
+
+          <a
+            href="/podcasts"
+            class="group relative overflow-visible card-glass px-8 py-3.5 rounded-xl text-porcelain font-semibold transition-all duration-300 inline-flex items-center justify-center"
+            >LISTEN TO PODCAST
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Video Spotlight Carousel -->
+      <div class="lg:col-span-5 hero-element">
+        <div
+          class="relative p-8 rounded-3xl card-glass shadow-2xl overflow-hidden group"
+        >
+          <div
+            class="absolute -top-20 -right-20 w-48 h-48 bg-velvet-orchid rounded-full blur-3xl opacity-50"
+          >
+          </div>
+
+          <!-- Outer Carousel Viewport (Masks overflowing slides) -->
+          <div
+            class="relative w-full aspect-video overflow-hidden rounded-xl border border-white/10 bg-black/20 group/carousel"
+          >
+            <!-- Sliding Track Container -->
+            <div
+              id="video-carousel-track"
+              class="flex w-full h-full transition-transform duration-700 ease-in-out"
+            >
+              <!-- Slides rendered dynamically via JavaScript -->
+            </div>
+          </div>
+
+          <!-- Carousel Controls -->
+          <div class="flex justify-center gap-3 mt-4">
+            <button
+              id="prev-video"
+              aria-label="Previous Video"
+              class="p-3 rounded-full bg-white/[0.05] backdrop-blur-md text-porcelain hover:text-razzmatazz transition-all duration-300 border border-white/10 hover:border-razzmatazz/50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg
+              >
+            </button>
+            <button
+              id="next-video"
+              aria-label="Next Video"
+              class="p-3 rounded-full bg-white/[0.05] backdrop-blur-md text-porcelain hover:text-razzmatazz transition-all duration-300 border border-white/10 hover:border-razzmatazz/50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg
+              >
+            </button>
+          </div>
+
+          <div
+            class="pt-6 mt-6 border-t border-white/10 flex justify-between items-center text-xs text-porcelain/50 font-mono"
+          >
+            <span id="current-video-name" class="text-porcelain/70 uppercase"
+              >DANI CHAMBERS</span
+            >
+            <a
+              href="https://www.youtube.com/c/ZealedFujoshi"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-razzmatazz font-medium group-hover:underline flex items-center gap-1"
+            >
+              <span>VIEW ALL INTERVIEWS</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Declare global YT interface for TypeScript
+  declare global {
+    interface Window {
+      onYouTubeIframeAPIReady?: () => void;
+      YT: any;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Parallax Scroll Effect
+    gsap.to("#hero-bg", {
+      yPercent: 20,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "section",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+
+    // GSAP Hero Entrance
+    const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+    tl.from(".hero-title span", {
+      y: 40,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.1,
+    });
+
+    // Video Carousel Config
+    const videos = [
+      { id: "eYPSntt8y9A", name: "DANI CHAMBERS", thumbnail: "/carousel/DaniChambers.jpg" },
+      { id: "pS4MN6fd3ns", name: "DAVID SOBOLOV", thumbnail: "/carousel/DavidSobolov.jpg" },
+      { id: "LGh5KL2Oltc", name: "KAIJI TANG", thumbnail: "/carousel/KaijiTang.jpg" },
+      { id: "fUSqCDd8o7A", name: "HUGO VLAD", thumbnail: "/carousel/HugoVlad.jpg" },
+      { id: "d_TuDwotT2s", name: "ACEN 2026", thumbnail: "/carousel/Acen2026.jpg" },
+    ];
+
+    let currentIdx = 0;
+    let isHovered = false;
+    let isVideoPlaying = false;
+    let autoSlideTimer: ReturnType<typeof setInterval>;
+    const ytPlayers: any[] = [];
+
+    const track = document.getElementById("video-carousel-track");
+    const nameDisplay = document.getElementById("current-video-name");
+    const nextBtn = document.getElementById("next-video");
+    const prevBtn = document.getElementById("prev-video");
+
+    if (!track) return;
+
+    // Render all slides
+    track.innerHTML = videos
+      .map(
+        (video, index) => `
+    <div class="vidcontainer w-full h-full flex-shrink-0 relative bg-black/40 group/vid">
+      <img 
+        src="${video.thumbnail}" 
+        alt="${video.name}" 
+        class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-500 pointer-events-none thumbnail-overlay"
+        onload="this.classList.add('loaded')"
+      />
+      <iframe 
+        id="yt-player-${index}"
+        class="w-full h-full relative z-0"
+        src="https://www.youtube.com/embed/${video.id}?enablejsapi=1" 
+        title="${video.name} Interview"
+        frameborder="0" 
+        loading="${index === 0 ? "eager" : "lazy"}"
+        onload="this.previousElementSibling?.classList.add('opacity-0')"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  `
+      )
+      .join("");
+
+    // Load YouTube IFrame API Script dynamically
+    if (!window.YT) {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    }
+
+    // Initialize YT Player instances when API is ready
+    function initYTPlayers() {
+      videos.forEach((_, index) => {
+        const iframe = document.getElementById(`yt-player-${index}`);
+        if (iframe && window.YT && window.YT.Player) {
+          ytPlayers[index] = new window.YT.Player(iframe, {
+            events: {
+              onStateChange: (event: any) => {
+                // 1 = PLAYING, 3 = BUFFERING
+                if (event.data === 1 || event.data === 3) {
+                  isVideoPlaying = true;
+                } else if (event.data === 0 || event.data === 2) {
+                  // 0 = ENDED, 2 = PAUSED
+                  isVideoPlaying = false;
+                }
+              },
+            },
+          });
+        }
+      });
+    }
+
+    if (window.YT && window.YT.Player) {
+      initYTPlayers();
+    } else {
+      window.onYouTubeIframeAPIReady = initYTPlayers;
+    }
+
+    // Slide Transition Function
+    function goToSlide(index: number) {
+      // Pause active YouTube video when moving to another slide
+      if (ytPlayers[currentIdx] && typeof ytPlayers[currentIdx].pauseVideo === "function") {
+        ytPlayers[currentIdx].pauseVideo();
+      }
+      isVideoPlaying = false;
+
+      currentIdx = (index + videos.length) % videos.length;
+
+      if (track) {
+        track.style.transform = `translateX(-${currentIdx * 100}%)`;
+      }
+
+      if (nameDisplay) {
+        nameDisplay.textContent = videos[currentIdx].name;
+      }
+    }
+
+    // Auto-slide Timer Loop
+    function startAutoSlide() {
+      clearInterval(autoSlideTimer);
+      autoSlideTimer = setInterval(() => {
+        // ONLY slide if user is NOT hovering AND video is NOT playing
+        if (!isHovered && !isVideoPlaying) {
+          goToSlide(currentIdx + 1);
+        }
+      }, 6000);
+    }
+
+    // Hover Listeners (separately controls isHovered)
+    const carouselWrapper = track.parentElement;
+    carouselWrapper?.addEventListener("mouseenter", () => {
+      isHovered = true;
+    });
+
+    carouselWrapper?.addEventListener("mouseleave", () => {
+      isHovered = false;
+    });
+
+    // Navigation Controls
+    nextBtn?.addEventListener("click", () => {
+      goToSlide(currentIdx + 1);
+      startAutoSlide();
+    });
+
+    prevBtn?.addEventListener("click", () => {
+      goToSlide(currentIdx - 1);
+      startAutoSlide();
+    });
+
+    // Start auto-slider
+    startAutoSlide();
+  });
+</script>

@@ -1,0 +1,215 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Global Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #0a0512;
+}
+
+body {
+  background-color: #0a0512;
+  color: #ffffff;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  letter-spacing: 0.3px;
+}
+
+/* ===== Scrollbar Styling ===== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #19053a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff117780;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff1177cc;
+}
+
+/* ===== Selection ===== */
+::selection {
+  background-color: #ff11774d;
+  color: #ffffff;
+}
+
+/* Squircle approximation for browsers not supporting shape-outside or custom paths */
+.rounded-squircle {
+  border-radius: 30px; /* Fallback */
+}
+
+@supports (border-radius: 30px) {
+  .rounded-squircle {
+    border-radius: 2rem; /* Softened corners */
+    mask-image: radial-gradient(
+      circle at center,
+      black 100%,
+      transparent 100%
+    ); /* Simple mask hint */
+  }
+}
+
+/* ===== Utilities ===== */
+@layer components {
+  /* Glassmorphic Card Base */
+  .card-glass {
+    @apply rounded-2xl p-6 lg:p-8 overflow-hidden relative transition-all duration-500;
+    isolation: isolate; /* Creates a clean z-index stacking context for children */
+  }
+
+  /* Isolated Glass Background & SVG Refraction Layer */
+  .card-glass::before {
+    content: "";
+    @apply absolute inset-0 rounded-2xl pointer-events-none -z-10 transition-all duration-500;
+
+    /* Liquid glass backdrop refraction applied ONLY to background */
+    backdrop-filter: url(#water-glass) blur(16px);
+    -webkit-backdrop-filter: url(#water-glass) blur(16px);
+
+    /* Shimmer Background */
+    background:
+      radial-gradient(
+        100% 100% at 0% 0%,
+        rgba(255, 255, 255, 0.12) 0%,
+        transparent 60%
+      ),
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(255, 255, 255, 0.01) 100%
+      );
+
+    /* Borders & Caustic Glows */
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow:
+      0 8px 32px 0 rgba(0, 0, 0, 0.37),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
+      inset 0 -1px 20px 0 rgba(255, 17, 119, 0.05);
+  }
+
+  /* Liquid Hover Glow */
+  .card-glass:hover::before {
+    border-color: rgba(255, 17, 119, 0.6);
+    box-shadow:
+      0 12px 40px 0 rgba(255, 17, 119, 0.25),
+      inset 0 1px 2px 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 25px 0 rgba(255, 17, 119, 0.15);
+  }
+
+  .card-glass:hover {
+    transform: translateY(-2px);
+  }
+  /* Text Gradients */
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-[#FF1177] via-[#B14FD1] to-[#FFFFFF] bg-clip-text text-transparent;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply px-6 py-3.5 rounded-xl bg-[#FF1177] text-[#FFFFFF] font-semibold hover:shadow-[0_0_20px_rgba(255,17,119,0.4)] hover:bg-[#FF1177]/90 transition-all duration-300;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3.5 rounded-xl bg-white/[0.05] border border-white/15 text-[#FFFFFF] font-semibold hover:bg-white/10 backdrop-blur-xl transition-all duration-300;
+  }
+
+  /* Badge Variants */
+  .badge-primary {
+    @apply text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#FF1177]/10 text-[#FF1177] border border-[#FF1177]/30;
+  }
+
+  .badge-secondary {
+    @apply text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#6C3483]/30 text-[#FFFFFF]/80 border border-[#6C3483]/50;
+  }
+
+  /* Link Styles */
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  a:hover {
+    @apply text-[#FF1177];
+  }
+
+  /* Heading Typography */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-black text-[#FFFFFF] tracking-tight;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+  }
+}
+
+/* ===== Prose Styling (for markdown content) ===== */
+.prose {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: #ffffff;
+  font-weight: 900;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose a {
+  color: #ff1177;
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: #ffffff;
+}
+
+.prose code {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  color: #ff1177;
+  font-family: monospace;
+}
+
+.prose pre {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+}
+
+.prose blockquote {
+  border-left: 3px solid #ff1177;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  padding-left: 1.5rem;
+}
