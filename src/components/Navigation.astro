@@ -6,7 +6,7 @@
 <nav class="bg-zf-black border-b border-zf-gray/50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
-      {/* Nav Links */}
+      <!-- Nav Links -->
       <div class="hidden md:flex items-center gap-8">
         <a href="/" class="text-zf-white hover:text-zf-crimson font-inter font-medium transition-colors text-sm">
           HOME
@@ -25,16 +25,22 @@
         </a>
       </div>
 
-      {/* Mobile Menu Button */}
-      <button class="md:hidden p-2 rounded hover:bg-zf-gray transition-colors">
+      <!-- Mobile Menu Button -->
+      <button 
+        type="button"
+        aria-label="Toggle Navigation"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="md:hidden p-2 rounded hover:bg-zf-gray transition-colors"
+      >
         <svg class="w-6 h-6 text-zf-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
 
-      {/* CTA Button */}
+      <!-- CTA Button -->
       <div class="flex items-center gap-4">
-        <button class="btn-primary hidden sm:inline-flex text-sm">
+        <button type="button" class="btn-primary hidden sm:inline-flex text-sm">
           Press Inquiries
         </button>
         <a href="#listen" class="btn-primary text-sm md:text-base">
@@ -43,7 +49,7 @@
       </div>
     </div>
 
-    {/* Mobile Menu (hidden by default, shown via JS) */}
+    <!-- Mobile Menu -->
     <div class="hidden md:hidden pb-4 space-y-2" id="mobile-menu">
       <a href="/" class="block px-3 py-2 rounded text-zf-white hover:bg-zf-gray transition-colors text-sm">
         Home
