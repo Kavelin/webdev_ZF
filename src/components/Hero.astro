@@ -164,6 +164,7 @@
   </div>
 </section>
 
+
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -200,7 +201,7 @@
 
     if (!track) return;
 
-    // Step 1: Execute DOM writes (innerHTML) before any GSAP readings
+    // 1. Perform DOM Mutation Writes First
     track.innerHTML = videos
       .map(
         (video, index) => `
@@ -214,6 +215,8 @@
         <img 
           src="${video.thumbnail}" 
           alt="${video.name}" 
+          width="1280"
+          height="720"
           class="absolute inset-0 w-full h-full object-cover z-0 thumbnail-overlay"
           onerror="this.onerror=null; this.src='https://i.ytimg.com/vi/${video.id}/hqdefault.jpg';"
         />
@@ -229,29 +232,30 @@
       )
       .join("");
 
-    // Step 2: Schedule GSAP Reads/Animations in requestAnimationFrame to avoid forced reflows
+    // 2. Double-rAF ensures style recalculation & layout pass are fully committed by browser
     requestAnimationFrame(() => {
-      gsap.to("#hero-bg", {
-        yPercent: 20,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "section",
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
+      requestAnimationFrame(() => {
+        gsap.to("#hero-bg", {
+          yPercent: 20,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "section",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
 
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-      tl.from(".hero-title span", {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.1,
+        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+        tl.from(".hero-title span", {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.1,
+        });
       });
     });
 
-    // Lazy load YT API script only on demand
     function loadYTApi(callback?: () => void) {
       if (window.YT && window.YT.Player) {
         if (callback) callback();
@@ -273,7 +277,6 @@
       };
     }
 
-    // Activate individual YT iframe on demand
     function activateVideo(index: number) {
       const container = track.querySelector(`[data-index="${index}"]`);
       if (!container) return;
@@ -313,7 +316,6 @@
       });
     }
 
-    // Facade click listener
     track.addEventListener("click", (e) => {
       const target = e.target as HTMLElement;
       const btn = target.closest(".play-facade") as HTMLButtonElement | null;

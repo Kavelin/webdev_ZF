@@ -47,7 +47,7 @@ export default function PartnerMarquee() {
         </h2>
       </div>
 
-      <div className="flex w-full overflow-hidden select-none">
+      <div className="flex w-full select-none">
         <motion.div
           animate={{ x: ['0%', '-50%'] }}
           transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
