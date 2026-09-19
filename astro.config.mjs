@@ -12,7 +12,7 @@ export default defineConfig({
 
   vite: {
     ssr: {
-      noExternal: ["lucide-react"],
+      noExternal: ["lucide-react", "framer-motion", "gsap"],
     },
     build: {
       // Prevents micro-chunking that creates deep import dependency trees
