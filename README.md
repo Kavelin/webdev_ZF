@@ -38,8 +38,4 @@ npm run preview  # serves the built site locally
 
 ---
 
-## Deployment & CMS
 
-- **Potential CMS Options**: TinaCMS or DecapCMS.
-- **Strategy**: Leveraging Astro Content Collections to allow the CMS to edit Markdown files directly in the repository!
----
